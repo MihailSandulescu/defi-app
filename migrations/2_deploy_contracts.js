@@ -2,9 +2,6 @@ const DappToken = artifacts.require('DappToken');
 const DaiToken = artifacts.require('DaiToken');
 const TokenFarm = artifacts.require("TokenFarm");
 
-const MyToken = artifacts.require("MyToken")
-const FarmToken = artifacts.require("FarmToken")
-
 module.exports = async function(deployer, network, accounts) {
 // Deploy MOCK DAI Token
   await deployer.deploy(DaiToken)
@@ -13,12 +10,6 @@ module.exports = async function(deployer, network, accounts) {
   // Deploy Dapp Token
   await deployer.deploy(DappToken)
   const dappToken = await DappToken.deployed()
-
-  // Deploy MyToken
-  myToken = await MyToken.deployed()
-  farmToken = await FarmToken.deployed()
-  balance = await myToken.balanceOf(farmToken.address)
-  console.log(web3.utils.fromWei(balance.toString()))
 
   // Deploy TokenFarm
   await deployer.deploy(TokenFarm, dappToken.address, daiToken.address);
